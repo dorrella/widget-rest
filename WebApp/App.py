@@ -15,7 +15,7 @@ class MainHandler(tornado.web.RequestHandler):
 
 
 def make_app():
-    path_handlers = [(r"/", MainHandler), (r"/widget", WidgetHandler)]
+    path_handlers = [(r"/", MainHandler), (r"/widget.*", WidgetHandler)]
 
     app = WebApp(path_handlers)
 
