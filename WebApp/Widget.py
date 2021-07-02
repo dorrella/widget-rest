@@ -2,6 +2,7 @@ import json
 import tornado.web
 from .Database import get_db
 
+
 def get_all_widgets():
     rows = "select * from widget"
     db = get_db()
@@ -22,6 +23,7 @@ def get_all_widgets():
 
     return widgets
 
+
 class Widget:
     def __init__(self):
         self.id = None
@@ -31,23 +33,23 @@ class Widget:
 
     def to_json(self):
         data = {
-            'id': self.id,
-            'name': self.name,
-            'parts': self.parts,
-            'created': self.created,
-            'updated': self.updated
-            }
+            "id": self.id,
+            "name": self.name,
+            "parts": self.parts,
+            "created": self.created,
+            "updated": self.updated,
+        }
         data_str = json.dumps(data)
         return data_str
+
 
 class WidgetHandler(tornado.web.RequestHandler):
     def get(self):
         widgets = get_all_widgets()
-        message = f"Hello, world {len(widgets)}"
-        #would be faster to do this inline in get_all_widgets, but maybe it's better to have the data structure?
+        # would be faster to do this inline in get_all_widgets,
+        # but maybe it's better to have the Object?
         data = []
         for w in widgets:
             data.append(w.to_json())
         data_str = json.dumps(data)
         self.write(data_str)
-

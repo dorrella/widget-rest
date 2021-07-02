@@ -1,0 +1,21 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+    -   id: check-yaml
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+    -   id: requirements-txt-fixer
+    -   id: pretty-format-json
+    -   id: check-case-conflict
+    -   id: check-executables-have-shebangs
+    -   id: check-shebang-scripts-are-executable
+    -   id: name-tests-test
+-   repo: https://github.com/psf/black
+    rev: 21.6b0
+    hooks:
+    -   id: black
+-   repo: https://github.com/pycqa/flake8
+    rev: '3.9.2'
+    hooks:
+    -   id: flake8
