@@ -1,4 +1,5 @@
 appdirs==1.4.4
+autopep8==1.5.7
 cfgv==3.3.0
 distlib==0.3.2
 filelock==3.0.12
