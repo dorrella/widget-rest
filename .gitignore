@@ -1,6 +1,9 @@
 #emacs
 *~
 
+#sqlite
+my_db
+
 #python
 *.pyc
 

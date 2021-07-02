@@ -1,6 +1,6 @@
 import tornado.ioloop
 import tornado.web
-from .Database import init_db
+from .Database import init_db, init_test_db
 
 # list handlers individually to make pep8 happy
 from .Nodes import WidgetHandler
@@ -31,16 +31,12 @@ def make_app():
 
 def make_test_app():
     app = make_app()
-    # init db
-    # todo in memory sql for this only
-    init_db()
-
+    init_test_db()
     return app
 
 
-def run_app(port):
-    # todo check that port is a valid int
+def run_app(port, database):
     app = make_app()
-    init_db()
+    init_db(database)
     app.listen(port)
     tornado.ioloop.IOLoop.current().start()

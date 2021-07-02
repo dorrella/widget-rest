@@ -1,23 +1,24 @@
 import sqlite3
 
 create_str = """
-create table widget (
-    id INTEGER PRIMARY KEY,
-    name TEXT,
-    parts INTEGER,
-    created TEXT,
-    updated TEXT)
-"""
-insert_str = """
-insert into widget
-    (name, parts, created, updated)
-    values (?, ?, ?, ?)
+create table if not exists widget (
+    id integer primary key,
+    name text,
+    parts integer,
+    created text,
+    updated text)
 """
 
 
-def init_db():
+def init_test_db():
     global db
-    db = Database()
+    db = Database(None)
+    db.populate()
+
+
+def init_db(file):
+    global db
+    db = Database(file)
     db.populate()
 
 
@@ -26,14 +27,12 @@ def get_db():
 
 
 class Database:
-    def __init__(self):
-        self.con = sqlite3.connect(":memory:")
+    def __init__(self, file):
+        if file is None:
+            self.con = sqlite3.connect(":memory:")
+            return
+        self.con = sqlite3.connect(file)
 
     def populate(self):
         cur = self.con.cursor()
         cur.execute(create_str)
-        widgets = [
-            ("foo", 1, "2020-03-21", "2020-10-03"),
-            ("bar", 1, "2021-09-15", "2021-09-15"),
-        ]
-        cur.executemany(insert_str, widgets)

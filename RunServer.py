@@ -2,4 +2,4 @@
 
 from WebApp import run_app
 
-run_app(8080)
+run_app(8080, "my_db")

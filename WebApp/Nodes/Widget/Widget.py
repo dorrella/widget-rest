@@ -55,6 +55,11 @@ class Widget:
         data_str = json.dumps(data)
         return data_str
 
+    def from_json(self, j):
+        # maybe we should check this is a dict
+        d = json.loads(j)
+        self.from_dict(d)
+
     def to_dict(self):
         data = {
             "id": self.id,
@@ -64,3 +69,12 @@ class Widget:
             "updated": self.updated,
         }
         return data
+
+    def from_dict(self, d):
+        # this can throw errors, but i think
+        # we want to handle them down the stack
+        self.id = d["id"]
+        self.name = d["name"]
+        self.parts = d["parts"]
+        self.created = d["created"]
+        self.updated = d["updated"]
