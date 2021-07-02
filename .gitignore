@@ -2,7 +2,7 @@
 *~
 
 #python
-
+*.pyc
 
 #virtual env
 env
