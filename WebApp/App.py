@@ -39,4 +39,7 @@ def run_app(port, database):
     app = make_app()
     init_db(database)
     app.listen(port)
-    tornado.ioloop.IOLoop.current().start()
+    try:
+        tornado.ioloop.IOLoop.current().start()
+    except:
+        tornado.ioloop.IOLoop.instance().stop()

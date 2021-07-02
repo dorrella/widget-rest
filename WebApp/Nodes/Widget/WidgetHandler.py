@@ -3,13 +3,15 @@ from datetime import date
 
 from .Widget import Widget, get_all_widgets
 from ..Template import TemplateHandler
-from ...Database import get_db
+from ...Database import get_db, commit_db
 
 insert_str = """
 insert into widget
     (name, parts, created, updated)
     values (?, ?, ?, ?)
 """
+
+# should probably be in some common place
 
 
 def get_datestamp():
@@ -31,12 +33,20 @@ class WidgetHandler(TemplateHandler):
         # ignore path errors, for now
         try:
             data = json.loads(self.request.body)
-            print(data)
             name = data["name"]
             parts = data["parts"]
-            print(name)
         except:
             self.err_out(400, "unknown error")
+            return
+
+        if len(name) > 64:
+            msg = f"name: {name} too long"
+            self.err_out(400, msg)
+            return
+
+        if not isinstance(parts, int):
+            msg = f"parts: {parts} must be integer"
+            self.err_out(400, msg)
             return
 
         ds = get_datestamp()
@@ -45,9 +55,10 @@ class WidgetHandler(TemplateHandler):
         w.parts = parts
         w.created = ds
         w.updated = ds
-        print(w.to_json())
 
         db = get_db()
         db.execute(insert_str, (name, parts, ds, ds))
+        commit_db()
+        # not sure if these are guarenteed to be the same
         w.id = db.lastrowid
         self.write(w.to_json())

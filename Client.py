@@ -12,8 +12,8 @@ response = requests.get(url)
 data = response.json()
 print(data)
 
-f = open("json/test1.json", "r")
-text = f.read()
+with open("json/test1.json", "r") as f:
+    text = f.read()
 
 response = requests.post(url, data=text)
 data = response.json()

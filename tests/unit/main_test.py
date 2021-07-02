@@ -1,5 +1,11 @@
-from WebApp.App import make_test_app
+import os
+from pathlib import Path
 from tornado.testing import AsyncHTTPTestCase
+
+from WebApp.App import make_test_app
+
+dir_path = Path(os.path.dirname(os.path.realpath(__file__)))
+json_path = dir_path / "../../json"
 
 
 class TestMainHandlerSetup(AsyncHTTPTestCase):

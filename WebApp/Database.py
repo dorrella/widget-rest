@@ -26,12 +26,16 @@ def get_db():
     return db.con.cursor()
 
 
+def commit_db():
+    db.con.commit()
+
+
 class Database:
     def __init__(self, file):
         if file is None:
             self.con = sqlite3.connect(":memory:")
-            return
-        self.con = sqlite3.connect(file)
+        else:
+            self.con = sqlite3.connect(file)
 
     def populate(self):
         cur = self.con.cursor()
