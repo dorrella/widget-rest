@@ -1,4 +1,9 @@
 import tornado.web
+from datetime import date
+
+
+def get_datestamp():
+    return date.today().isoformat()
 
 
 class TemplateHandler(tornado.web.RequestHandler):

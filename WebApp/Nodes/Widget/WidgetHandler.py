@@ -1,8 +1,7 @@
 import json
-from datetime import date
 
 from .Widget import Widget, get_all_widgets
-from ..Template import TemplateHandler
+from ..Template import TemplateHandler, get_datestamp
 from ...Database import get_db, commit_db
 
 insert_str = """
@@ -10,12 +9,6 @@ insert into widget
     (name, parts, created, updated)
     values (?, ?, ?, ?)
 """
-
-# should probably be in some common place
-
-
-def get_datestamp():
-    return date.today().isoformat()
 
 
 class WidgetHandler(TemplateHandler):
@@ -36,7 +29,7 @@ class WidgetHandler(TemplateHandler):
             name = data["name"]
             parts = data["parts"]
         except:
-            self.err_out(400, "unknown error")
+            self.err_out(400, "bad input")
             return
 
         if len(name) > 64:

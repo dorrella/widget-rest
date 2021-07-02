@@ -47,6 +47,7 @@ class Widget:
     def __init__(self):
         self.id = None
         self.name = None
+        self.parts = None
         self.created = None
         self.updated = None
 
