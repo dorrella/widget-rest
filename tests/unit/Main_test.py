@@ -12,6 +12,13 @@ class TestMainHandlerSetup(AsyncHTTPTestCase):
     def get_app(self):
         return make_test_app()
 
+    def populate_db(self):
+        for file_name in ["test1", "test2", "test3"]:
+            path = json_path / f"{file_name}.json"
+            with open(path, "r") as f:
+                text = f.read()
+            self.fetch("/widget", method="POST", body=text)
+
 
 class TestMainHandler(TestMainHandlerSetup):
     def test_get(self):

@@ -1,4 +1,4 @@
-from .main_test import TestMainHandlerSetup, json_path
+from .Main_test import TestMainHandlerSetup, json_path
 
 # should be in some common lib
 
@@ -9,7 +9,7 @@ def load_json(path):
     return text
 
 
-class TestMainHandler(TestMainHandlerSetup):
+class TestWidgetHandler(TestMainHandlerSetup):
     def test_get(self):
         response = self.fetch("/widget")
         self.assertEqual(response.code, 200)

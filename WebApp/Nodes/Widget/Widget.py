@@ -51,6 +51,19 @@ class Widget:
         self.created = None
         self.updated = None
 
+    def __eq__(self, other):
+        if not isinstance(other, Widget):
+            return False
+        if self.id != other.id:
+            return False
+        if self.parts != other.parts:
+            return False
+        if self.updated != other.created:
+            return False
+        if self.updated != other.updated:
+            return False
+        return True
+
     def to_json(self):
         data = self.to_dict()
         data_str = json.dumps(data)
@@ -72,10 +85,12 @@ class Widget:
         return data
 
     def from_dict(self, d):
-        # this can throw errors, but i think
-        # we want to handle them down the stack
-        self.id = d["id"]
+        if "id" in d:
+            self.id = d["id"]
+        if "created" in d:
+            self.created = d["created"]
+        if "updated" in d:
+            self.updated = d["updated"]
+
         self.name = d["name"]
         self.parts = d["parts"]
-        self.created = d["created"]
-        self.updated = d["updated"]

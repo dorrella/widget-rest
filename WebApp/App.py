@@ -1,8 +1,7 @@
 import tornado.ioloop
 import tornado.web
-import logging
 
-from .Logger import init_logger
+from .Logger import init_logger, log_info
 from .Database import init_db, init_test_db
 
 # list handlers individually to make pep8 happy
@@ -33,20 +32,20 @@ def make_app():
 
 
 def make_test_app():
-    init_logger(None)
+    init_logger(None, False)
     app = make_app()
     init_test_db()
     return app
 
 
 def run_app(port, database, logfile):
-    init_logger(logfile)
-    logging.info("initializing app")
+    init_logger(logfile, True)
+    log_info("initializing app")
     app = make_app()
-    logging.info(f"initializing database {database}")
+    log_info(f"initializing database {database}")
     init_db(database)
     app.listen(port)
-    logging.info("starting server")
+    log_info("starting server")
     try:
         tornado.ioloop.IOLoop.current().start()
     except:

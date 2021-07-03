@@ -54,6 +54,17 @@ class WidgetEntryHandler(TemplateHandler):
             self.err_out(400, "bad input")
             return
 
+        # validate input
+        if len(name) > 64:
+            msg = f"name: {name} too long"
+            self.err_out(400, msg)
+            return
+
+        if not isinstance(parts, int):
+            msg = f"parts: {parts} must be integer"
+            self.err_out(400, msg)
+            return
+
         # find current widget
         try:
             w = get_widget(id)
