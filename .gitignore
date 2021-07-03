@@ -4,8 +4,9 @@
 #sqlite
 my_db
 
-#log
+#log files
 log.txt
+test_log.txt
 
 #python
 *.pyc

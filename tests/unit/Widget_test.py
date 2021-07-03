@@ -8,7 +8,10 @@ date = "2021-07-01"
 
 
 class TestWidget(unittest.TestCase):
+    """test for Widget class"""
+
     def test_from_json(self):
+        """tests json parsing"""
         w = Widget()
         path = json_path / "test1.json"
         with open(path, "r") as f:
@@ -21,7 +24,7 @@ class TestWidget(unittest.TestCase):
         self.assertEqual(w.parts, 10)
 
     def test_to_json(self):
-        date = "2021-07-01"
+        """tests json dumping"""
         w = Widget()
         w.id = 1
         w.name = "test"
@@ -37,6 +40,7 @@ class TestWidget(unittest.TestCase):
         self.assertEqual(data["created"], date)
 
     def test_from_dict(self):
+        """test loading from dict"""
         w = Widget()
         data = {
             "id": 1,
@@ -53,6 +57,7 @@ class TestWidget(unittest.TestCase):
         self.assertEqual(data["created"], date)
 
     def test_to_dict(self):
+        """tests dumping to dict"""
         w = Widget()
         w.id = 1
         w.name = "test"
@@ -67,6 +72,7 @@ class TestWidget(unittest.TestCase):
         self.assertEqual(data["created"], date)
 
     def test_eq(self):
+        """tests comparision with __eq__"""
         w = Widget()
         other = Widget()
         w.id = 1

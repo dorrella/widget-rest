@@ -1,21 +1,19 @@
 import tornado.ioloop
 import tornado.web
 
-from .Logger import init_logger, log_info
+from .Logger import init_logger, TraceFlag, info
 from .Database import init_db, init_test_db
 
 # list handlers individually to make pep8 happy
+from .Endpoints import MainHandler
 from .Endpoints import WidgetHandler
 from .Endpoints import WidgetEntryHandler
 
 
-# handles / path
-class MainHandler(tornado.web.RequestHandler):
-    def get(self):
-        self.write("Hello, world")
-
-
 def make_app():
+    """creates test app for tests
+
+    :return: tornado app for testing"""
     path_handlers = [
         (r"/", MainHandler),
         (r"/widget/?", WidgetHandler),
@@ -27,24 +25,35 @@ def make_app():
     return app
 
 
-# app just for tests
-# it uses in memory database
 def make_test_app():
-    init_logger(None, False)
+    """creates test app for tests using
+    in memory database
+
+    :return: tornado app for testing"""
+    init_logger("test_log.txt", False)
     app = make_app()
     init_test_db()
     return app
 
 
-# run app
 def run_app(port, database, logfile):
+    """starts web app and waits for Ctrl+C interrupt
+
+    :param port: port to run the app on
+    :type port: int
+    :param database: path to database
+    :type database: string
+    :param logfile: path to log
+    :type logfile: string"""
+
     init_logger(logfile, True)
-    log_info("initializing app")
+    info(TraceFlag.APP, "initializing app")
+
     app = make_app()
-    log_info(f"initializing database {database}")
     init_db(database)
     app.listen(port)
-    log_info("starting server")
+
+    info(TraceFlag.APP, "starting server")
     try:
         tornado.ioloop.IOLoop.current().start()
     except:

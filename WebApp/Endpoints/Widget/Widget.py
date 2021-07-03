@@ -2,10 +2,16 @@ import json
 
 from ...Database import get_db
 
-# list all widgets from database
+# Should these be a static methods on the Widget Class?
 
 
 def get_all_widgets():
+    """gets all entries from widget table,
+    puts them into Widget objects and returns
+    them.
+
+    :return: list of widgets
+    :return type: list"""
     rows = "select * from widget"
     db = get_db()
     rows = db.execute(rows)
@@ -26,8 +32,12 @@ def get_all_widgets():
     return widgets
 
 
-# get single widget
 def get_widget(id):
+    """gets widget by id
+
+    :raises Error: when not found
+    :return: widget
+    :return type: Widget"""
     query = "select * from widget where id=?"
     db = get_db()
     db.execute(query, (id))
@@ -46,8 +56,9 @@ def get_widget(id):
     return w
 
 
-# wrapper around widget data
 class Widget:
+    """holds widget data"""
+
     def __init__(self):
         self.id = None
         self.name = None
@@ -68,20 +79,30 @@ class Widget:
             return False
         return True
 
-    # convert to json string
     def to_json(self):
+        """converts widget to json string
+
+        :return: json string containing widget
+        :return type: string"""
         data = self.to_dict()
         data_str = json.dumps(data)
         return data_str
 
-    # convert from json string
     def from_json(self, j):
+        """loads json into Widget
+
+        :param j: json string
+        :type j: string"""
         # maybe we should check this is a dict
         d = json.loads(j)
         self.from_dict(d)
 
     # convert to dictionary
     def to_dict(self):
+        """converts widget to dictionary
+
+        :return: dictionary containing widget
+        :return type: dict"""
         data = {
             "id": self.id,
             "name": self.name,
@@ -91,8 +112,12 @@ class Widget:
         }
         return data
 
-    # convert from dictionary
     def from_dict(self, d):
+        """loads dictionary into Widget
+
+        :param d: dictionary container widget field
+        :type d: dict"""
+        # these are not required
         if "id" in d:
             self.id = d["id"]
         if "created" in d:

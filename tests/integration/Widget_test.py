@@ -3,19 +3,21 @@ import json
 from .Common_test import TestMainHandlerSetup
 from WebApp.Endpoints.Widget.Widget import Widget
 
-# should be in some common lib
-
 
 def load_json(path):
+    """helper to load json inline"""
     with open(path, "r") as f:
         text = f.read()
     return text
 
 
 class TestWidgetHandler(TestMainHandlerSetup):
+    """integration and regression tests for the Widget
+    Endpoints. Mostly makes sure that the different endpoints
+    are working together. Far from exhaustive"""
 
-    # test list is equal to gets
     def test_get(self):
+        """test to check contest of list are equal to contents of get"""
         self.populate_db()
         w = Widget()
 
@@ -32,6 +34,11 @@ class TestWidgetHandler(TestMainHandlerSetup):
             self.assertTrue(w == other)
 
     def test_update(self):
+        """test that an update will update the
+        correct fields.
+
+        todo need a way to monkey patch the created/updated
+        dates"""
         self.populate_db()
         w = Widget()
 
@@ -51,6 +58,7 @@ class TestWidgetHandler(TestMainHandlerSetup):
         self.assertNotEqual(other.parts, w.parts)
 
     def test_delete(self):
+        """test we can delete widgets"""
         # test not there
         response = self.fetch("/widget/1")
         self.assertEqual(response.code, 404)

@@ -23,9 +23,111 @@ Ideas to make the project even better:
 * Pass bandit security analysis
 * Use Python type annotations
 
+# Design
+
+## Endpoints
+
+### List
+
+GET `/widget`
+
+returns list of objects
+
+```
+[
+  {
+    "id": 1,
+    "name": "test",
+    "parts": 10,
+    "created": "2021-07-04",
+    "updated": "2021-07-04"
+  },
+  {
+    "id": 2,
+    "name": "other",
+    "parts": 8,
+    "created": "2021-06-14",
+    "updated": "2021-07-04"
+  },
+]
+```
+
+### Create
+
+POST `/widget`
+
+body
+
+```
+{
+  "name": "test",
+  "parts": 10
+}
+```
+
+returns full object
+
+```
+{
+  "id": 1,
+  "name": "test",
+  "parts": 10,
+  "created": "2021-07-04",
+  "updated": "2021-07-04"
+}
+```
+
+### Read
+
+GET `/widget/{id}`
+
+
+returns full object
+
+```
+{
+  "id": 1,
+  "name": "test",
+  "parts": 10,
+  "created": "2021-07-04",
+  "updated": "2021-07-04"
+}
+```
+
+### Update
+
+PUT `/widget/{id}`
+
+body
+
+```
+{
+  "name": "test",
+  "parts": 10,
+}
+```
+
+returns full object
+
+```
+{
+  "id": 1,
+  "name": "test",
+  "parts": 10,
+  "created": "2021-06-04",
+  "updated": "2021-07-04"
+}
+```
+
+### Delete
+
+DELETE `/widget/{id}`
+
+# Running Server
+
 ## Setup
 
-Assume virtenv. tested on Ubuntu 18.04
+Assume virtenv. Tested on Ubuntu 18.04 with python 3.8.10.
 
 ```
 ./setup.sh
@@ -38,6 +140,8 @@ Run the server with
 ```
 $ source ./env/bin/activate
 (env) $ ./RunServer.py
+^C
+(env) $ deactivate
 ```
 
 ## Example Client
@@ -48,12 +152,14 @@ and the do CRUD with sample data
 ```
 $ source ./env/bin/activate
 (env) $ ./Client.py
+(env) $ deactivate
 ```
 
 ## Run Tests
 ```
 $ source ./env/bin/activate
 (env) $ ./Client.py
+(env) $ deactivate
 ```
 
 ## Run Static Analysis
@@ -67,4 +173,5 @@ Run analysis with:
 ```
 $ source ./env/bin/activate
 (env) $ pre-commit run --all-files
+(env) $ deactivate
 ```
