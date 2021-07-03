@@ -10,26 +10,31 @@ create table if not exists widget (
 """
 
 
+# init db singleton for tests
 def init_test_db():
     global db
     db = Database(None)
     db.populate()
 
 
+# init db singleton
 def init_db(file):
     global db
     db = Database(file)
     db.populate()
 
 
+# returns db singleton
 def get_db():
     return db.con.cursor()
 
 
+# commits changes to db
 def commit_db():
     db.con.commit()
 
 
+# wrapper for singleton
 class Database:
     def __init__(self, file):
         if file is None:

@@ -4,6 +4,8 @@ import logging
 
 logger = None
 
+# init loggers for console and files
+
 
 def init_logger(file, console):
     global logger
@@ -21,6 +23,8 @@ def init_logger(file, console):
         logger.file.setLevel(logging.INFO)
 
 
+# wrapper around logging.info
+# todo, trace flags
 def log_info(msg):
     if logger.file:
         logger.file.info(msg)
@@ -29,6 +33,7 @@ def log_info(msg):
         logger.console.info(msg)
 
 
+# wrapper around logging.debug
 def log_debug(msg):
     if logger.file:
         logger.file.debug(msg)
@@ -37,6 +42,7 @@ def log_debug(msg):
         logger.console.debug(msg)
 
 
+# holds loggers for console and file
 class AppLogger:
     def __init__(self):
         self.console = None

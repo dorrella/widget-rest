@@ -2,6 +2,8 @@ import json
 
 from ...Database import get_db
 
+# list all widgets from database
+
 
 def get_all_widgets():
     rows = "select * from widget"
@@ -24,6 +26,7 @@ def get_all_widgets():
     return widgets
 
 
+# get single widget
 def get_widget(id):
     query = "select * from widget where id=?"
     db = get_db()
@@ -43,6 +46,7 @@ def get_widget(id):
     return w
 
 
+# wrapper around widget data
 class Widget:
     def __init__(self):
         self.id = None
@@ -64,16 +68,19 @@ class Widget:
             return False
         return True
 
+    # convert to json string
     def to_json(self):
         data = self.to_dict()
         data_str = json.dumps(data)
         return data_str
 
+    # convert from json string
     def from_json(self, j):
         # maybe we should check this is a dict
         d = json.loads(j)
         self.from_dict(d)
 
+    # convert to dictionary
     def to_dict(self):
         data = {
             "id": self.id,
@@ -84,6 +91,7 @@ class Widget:
         }
         return data
 
+    # convert from dictionary
     def from_dict(self, d):
         if "id" in d:
             self.id = d["id"]

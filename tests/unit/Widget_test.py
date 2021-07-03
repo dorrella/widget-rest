@@ -2,7 +2,7 @@ import unittest
 import json
 
 from .Main_test import json_path
-from WebApp.Nodes.Widget.Widget import Widget
+from WebApp.Endpoints.Widget.Widget import Widget
 
 date = "2021-07-01"
 

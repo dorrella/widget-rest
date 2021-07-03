@@ -1,7 +1,7 @@
 import json
 
 from .Common_test import TestMainHandlerSetup
-from WebApp.Nodes.Widget.Widget import Widget
+from WebApp.Endpoints.Widget.Widget import Widget
 
 # should be in some common lib
 

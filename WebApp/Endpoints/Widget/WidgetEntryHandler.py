@@ -4,6 +4,7 @@ from .Widget import get_widget
 from ..Template import TemplateHandler, get_datestamp
 from ...Database import get_db, commit_db
 
+# is this the best place for these
 update_str = """
 update widget
     set name = ? ,

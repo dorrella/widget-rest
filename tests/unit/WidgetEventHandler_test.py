@@ -1,7 +1,7 @@
 import json
 
 from .Main_test import TestMainHandlerSetup, json_path
-from WebApp.Nodes.Template import get_datestamp
+from WebApp.Endpoints.Template import get_datestamp
 
 # should be in some common lib
 

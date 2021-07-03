@@ -2,8 +2,7 @@
 
 import requests
 
-# ☹️
-from WebApp.Nodes.Widget.Widget import Widget
+from WebApp.Endpoints.Widget.Widget import Widget
 
 host = "localhost"
 port = 8080
@@ -20,6 +19,7 @@ def print_widget(w):
     print(f"    updated: {w.updated}")
 
 
+# get all widgets
 response = requests.get(url)
 data = response.json()
 
